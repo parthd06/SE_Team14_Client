@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, message } from "antd";
 import Button from "../../components/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RegisterUser } from "../../apicalls/users";
 
-
 function Register() {
+  const navigate = useNavigate();
+
   const onFinish = async (values) => {
     try {
       const response = await RegisterUser(values);
       if (response.success) {
         message.success(response.message);
+        // Optionally, navigate to login or home page after successful registration
+        navigate("/login"); // or navigate("/") depending on your flow
       } else {
         message.error(response.message);
       }
@@ -19,6 +22,12 @@ function Register() {
     }
   };
 
+  useEffect(() => {
+    
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, [navigate]); 
 
   return (
     <div className="flex justify-center h-screen items-center bg-primary">
@@ -54,7 +63,6 @@ function Register() {
           <div className="flex flex-col mt-2 gap-1">
             <Button fullWidth title="REGISTER" type="submit" />
             <Link to="/login" className="text-primary">
-              {" "}
               Already have an account? Login
             </Link>
           </div>
