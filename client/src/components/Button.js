@@ -14,7 +14,8 @@ function Button({ title, onClick, variant, disabled, fullWidth, type }) {
     }
 
     return (
-        <button className={className} type={type}>
+        <button className={className} type={type}
+        onClick={onClick} disabled={disabled}>
             {title}
         </button>
     );
