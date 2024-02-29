@@ -20,14 +20,12 @@ export const LoginUser = async (payload) => {
     }
 }
 
-
 // Get current user
-export const GetCurrentUser = async() => {
+export const GetCurrentUser = async () => {
     try {
-        const response = await axiosInstance.get("api/users/get-current-user");
+        const response = await axiosInstance.get("/api/users/get-current-user");
         return response.data;
     } catch (error) {
         return error;
     }
-
 }
