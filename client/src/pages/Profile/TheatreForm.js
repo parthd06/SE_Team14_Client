@@ -24,12 +24,15 @@ function TheatreForm({
       if (formType === "add") {
         response = await AddTheatre(values);
       } else {
+        values.theatreId = selectedTheatre._id;
+        response = await UpdateTheatre(values);
       }
 
       if (response.success) {
         message.success(response.message);
         setShowTheatreFormModal(false);
         setSelectedTheatre(null);
+        getData();
       } else {
         message.error(response.message);
       }
