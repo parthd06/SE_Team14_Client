@@ -7,6 +7,43 @@ import moment from "moment";
 
 function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
   const [view, setView] = React.useState("table");
+  const [shows, setShows] = React.useState([]);
+
+  const columns = [
+    {
+      title: "Show Name",
+      dataIndex: "name",
+    },
+    {
+      title: "Date",
+      dataIndex: "date",
+    },
+    {
+      title: "Time",
+      dataIndex: "time",
+    },
+    {
+      title: "Movie",
+      dataIndex: "movie",
+    },
+    {
+      title: "Ticket Price",
+      dataIndex: "ticketPrice",
+    },
+    {
+      title: "Total Seats",
+      dataIndex: "totalSeats",
+    },
+    {
+      title: "Available Seats",
+      dataIndex: "availableSeats",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+    },
+  ];
+
 
   return (
     <Modal
@@ -35,6 +72,8 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
           />
         )}
       </div>
+
+      {view === "table" && <Table columns={columns} dataSource={shows} />}
     </Modal>
   );
 }
