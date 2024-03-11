@@ -5,7 +5,15 @@ import TheatreForm from "./TheatreForm";
 import { useDispatch, useSelector } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { message, Table } from "antd";
-import { DeleteTheatre, GetAllTheatres, GetAllTheatresByOwner } from "../../apicalls/theatres";
+import {
+  DeleteTheatre,
+  GetAllTheatres,
+  GetAllTheatresByOwner,
+} from "../../apicalls/theatres";
+import Shows from "./Shows";
+
+
+
 
 function TheatresList() {
   const { user } = useSelector((state) => state.users);
@@ -14,6 +22,7 @@ function TheatresList() {
   const [selectedTheatre = null, setSelectedTheatre] = useState(null);
   const [formType = "add", setFormType] = useState("add");
   const [theatres = [], setTheatres] = useState([]);
+
   const [openShowsModal = false, setOpenShowsModal] = useState(false);
 
   const dispatch = useDispatch();
@@ -149,8 +158,8 @@ function TheatresList() {
       </div>
       <Table columns={columns} dataSource={theatres} />
 
-
-      {showTheatreFormModal && (<TheatreForm
+      {showTheatreFormModal && (
+        <TheatreForm
           showTheatreFormModal={showTheatreFormModal}
           setShowTheatreFormModal={setShowTheatreFormModal}
           formType={formType}
@@ -158,8 +167,17 @@ function TheatresList() {
           selectedTheatre={selectedTheatre}
           setSelectedTheatre={setSelectedTheatre}
           getData={getData}
-      />
-   )}
+        />
+      )}
+
+      {openShowsModal && (
+        <Shows
+          openShowsModal={openShowsModal}
+          setOpenShowsModal={setOpenShowsModal}
+          theatre={selectedTheatre}
+        />
+      )}
+
     </div>
   );
 }

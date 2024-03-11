@@ -10,7 +10,7 @@ function Button({ title, onClick, variant, disabled, fullWidth, type }) {
     }
     if(variant==='outlined')
     {
-        className = className.replace('bg-primary',  'border border-primary text-primary bg-white')
+        className = className.replace('bg-primary',  'border border-primary text-primary bg-black')
     }
 
     return (
