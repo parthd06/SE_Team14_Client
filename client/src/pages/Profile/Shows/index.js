@@ -4,10 +4,29 @@ import Button from "../../../components/Button";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../../redux/loadersSlice";
 import moment from "moment";
+import { GetAllMovies } from "../../../apicalls/movie";
 
 function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
   const [view, setView] = React.useState("table");
   const [shows, setShows] = React.useState([]);
+  const [movies, setMovies] = React.useState([]);
+  const dispatch = useDispatch();
+
+  const getMovies = async () => {
+    try {
+      dispatch(ShowLoading());
+      const response = await GetAllMovies();
+      if (response.success) {
+        setMovies(response.data);
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      message.error(error.message);
+      dispatch(HideLoading());
+    }
+  };
 
   const columns = [
     {
@@ -44,6 +63,9 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
     },
   ];
 
+  useEffect(() => {
+    getMovies();
+  }, []);
 
   return (
     <Modal
@@ -74,6 +96,95 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
       </div>
 
       {view === "table" && <Table columns={columns} dataSource={shows} />}
+
+      {view === "form" && (
+        <Form layout="vertical">
+          <Row gutter={[16, 16]}>
+            <Col span={8}>
+              <Form.Item
+                label="Show Name"
+                name="name"
+                rules={[{ required: true, message: "Please input show name!" }]}
+              >
+                <input />
+              </Form.Item>
+            </Col>
+
+            <Col span={8}>
+              <Form.Item
+                label="Date"
+                name="date"
+                rules={[{ required: true, message: "Please input show date!" }]}
+              >
+                <input
+                  type="date"
+                  min={new Date().toISOString().split("T")[0]}
+                />
+              </Form.Item>
+            </Col>
+
+            <Col span={8}>
+              <Form.Item
+                label="Time"
+                name="time"
+                rules={[{ required: true, message: "Please input show time!" }]}
+              >
+                <input type="time" />
+              </Form.Item>
+            </Col>
+
+            <Col span={8}>
+              <Form.Item
+                label="Movie"
+                name="movie"
+                rules={[{ required: true, message: "Please select movie!" }]}
+              >
+                <select>
+                  <option value="">Select Movie</option>
+                  {movies.map((movie) => (
+                    <option value={movie._id}>{movie.title}</option>
+                  ))}
+                </select>
+              </Form.Item>
+            </Col>
+
+            <Col span={8}>
+              <Form.Item
+                label="Ticket Price"
+                name="ticketPrice"
+                rules={[
+                  { required: true, message: "Please input ticket price!" },
+                ]}
+              >
+                <input type="number" />
+              </Form.Item>
+            </Col>
+
+            <Col span={8}>
+              <Form.Item
+                label="Total Seats"
+                name="totalSeats"
+                rules={[
+                  { required: true, message: "Please input total seats!" },
+                ]}
+              >
+                <input type="number" />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <div className="flex justify-end gap-1">
+            <Button
+              variant="outlined"
+              title="Cancel"
+              onClick={() => {
+                setView("table");
+              }}
+            />
+            <Button variant="contained" title="SAVE" type="submit" />
+          </div>
+        </Form>
+      )}
     </Modal>
   );
 }
