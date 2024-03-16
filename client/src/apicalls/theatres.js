@@ -62,7 +62,6 @@ export const DeleteTheatre = async (payload) => {
   }
 };
 
-
 // add show
 export const AddShow = async (payload) => {
   try {
@@ -89,7 +88,6 @@ export const GetAllShowsByTheatre = async (payload) => {
   }
 };
 
-
 // delete show
 export const DeleteShow = async (payload) => {
   try {
@@ -103,4 +101,16 @@ export const DeleteShow = async (payload) => {
   }
 };
 
+// get all theatres for a movie
+export const GetAllTheatresByMovie = async (payload) => {
+  try {
+    const response = await axiosInstance.post(
+      "/api/theatres/get-all-theatres-by-movie",
+      payload
+    );
+    return response.data;
+  } catch (error) {
+    return error.response;
+  }
+};
 

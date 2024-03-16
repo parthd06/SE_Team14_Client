@@ -4,7 +4,7 @@ import Button from "../../../components/Button";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../../redux/loadersSlice";
 import moment from "moment";
-import { GetAllMovies } from "../../../apicalls/movie";
+import { GetAllMovies } from "../../../apicalls/movies";
 import { AddShow, DeleteShow, GetAllShowsByTheatre } from "../../../apicalls/theatres";
 
 function Shows({ openShowsModal, setOpenShowsModal, theatre }) {

@@ -5,7 +5,7 @@ import moment from "moment";
 import { Table, message } from 'antd';
 import { useDispatch } from 'react-redux';
 import { HideLoading, ShowLoading } from '../../redux/loadersSlice';
-import { DeleteMovie, GetAllMovies } from '../../apicalls/movie';
+import { DeleteMovie, GetAllMovies } from '../../apicalls/movies';
 
 function MovieList() {
     const [showMovieFormModal, setShowMovieFormModal] = useState(false);

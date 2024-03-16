@@ -3,7 +3,7 @@ import { Col, Form, Modal, Row, message } from "antd"
 import Button from "../../components/Button"
 import { useDispatch } from "react-redux"
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice"
-import { AddMovie, UpdateMovie } from "../../apicalls/movie"
+import { AddMovie, UpdateMovie } from "../../apicalls/movies"
 import moment, { updateLocale } from "moment"
 
 
