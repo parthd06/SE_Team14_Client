@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { GetShowById } from '../../apicalls/theatres';
-import { message } from 'antd';
-import { ShowLoading, HideLoading } from '../../redux/loadersSlice'; // Make sure these are correctly imported
-import moment from 'moment';
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { GetShowById } from "../../apicalls/theatres";
+import { message } from "antd";
+import { ShowLoading, HideLoading } from "../../redux/loadersSlice"; // Assuming correct imports
+import moment from "moment";
 
 function BookShow() {
-  const [show, setShow] = React.useState(null); // Initialize show as null
+  const [show, setShow] = useState(null); // Initialize show as null
+  const [selectedSeats, setSelectedSeats] = useState([]); // Initialize selectedSeats as an empty array
 
   const params = useParams();
   const dispatch = useDispatch();
@@ -15,23 +16,72 @@ function BookShow() {
   const getData = async () => {
     try {
       dispatch(ShowLoading());
-      // Adjust the payload to match the backend expectations ("showId" instead of "showID")
-      const response = await GetShowById({ showId: params.id });
-      console.log('API Response:', response); // Debugging log to see the response data
+      const response = await GetShowById({ showId: params.id }); // Payload adjusted to "showId"
+
       if (response.success) {
-        console.log('Setting show:', response.data); // Debugging log for successful data retrieval
         setShow(response.data);
       } else {
         message.error(response.message);
       }
-      dispatch(HideLoading());
     } catch (error) {
-      dispatch(HideLoading());
       message.error(error.message);
-      console.error('Error fetching show:', error); // Debugging log for catching errors
+    } finally {
+      dispatch(HideLoading());
     }
   };
 
+  const getSeats = () => {
+    if (!show) return null; // Guard clause if show is not yet loaded
+
+    const columns = 12;
+    const totalSeats = show.totalSeats;
+    const rows = Math.ceil(totalSeats / columns);
+
+    return (
+      <div className="flex gap-1 flex-col p-2 card">
+        {Array.from(Array(rows).keys()).map((row) => (
+          <div className="flex gap-1 justify-center" key={row}>
+            {Array.from(Array(columns).keys()).map((column) => {
+              const seatNumber = row * columns + column + 1;
+              let seatClass = "seat";
+
+              if (selectedSeats.includes(seatNumber)) {
+                seatClass += " selected-seat";
+              }
+
+              if (show.bookedSeats.includes(seatNumber)) {
+                seatClass += " booked-seat";
+              }
+
+              return (
+                seatNumber <= totalSeats && (
+                  <div
+                    key={column} // Unique key for each seat in a row
+                    className={seatClass}
+                    onClick={() => {
+                      if (selectedSeats.includes(seatNumber)) {
+                        setSelectedSeats(
+                          selectedSeats.filter((item) => item !== seatNumber)
+                        );
+                      } else {
+                        setSelectedSeats([...selectedSeats, seatNumber]);
+                      }
+                    }}
+                  >
+                    <h1 className="text-sm">{seatNumber}</h1>
+                  </div>
+                )
+              );
+            })}
+          </div>
+        ))}
+      </div>
+    );
+  };
+  const getTotalTicketPrice = () => {
+    if (!show || selectedSeats.length === 0) return 0;
+    return show.ticketPrice * selectedSeats.length;
+  };
 
   useEffect(() => {
     getData();
@@ -39,25 +89,32 @@ function BookShow() {
 
   return (
     <div>
-      {/* Check if show is not null before trying to access its properties */}
       {show && (
         <div className="flex justify-between card p-2">
           <div>
-            <h1 className='text-xl'>{show.theatre.name}</h1>
-            <h1 className='text-xl'>{show.theatre.address.name}</h1>
+            <h1 className="text-xl">{show.theatre.name}</h1>
+            <h1 className="text-xl">{show.theatre.address.name}</h1>
           </div>
           <div>
-            <h1 className='text-2xl'>{show.movie.title}({show.movie.language})</h1> {/* Corrected typo here (lanaguage -> language) */}
-          </div>
-          <div>
-            <h1 className='text-xl'>
-              {moment(show.date).format('MMM Do yyyy ')}
-              {moment(show.time, "HH:mm").format('- hh:mm A')}
+            <h1 className="text-2xl">
+              {show.movie.title}({show.movie.language})
             </h1>
-            
+          </div>
+          <div>
+            <h1 className="text-xl">
+              {moment(show.date).format("MMM Do yyyy ")}
+              {moment(show.time, "HH:mm").format("- hh:mm A")}
+            </h1>
           </div>
         </div>
       )}
+
+      <div className="flex justify-center mt-2">{getSeats()}</div>
+      <div className="flex justify-center mt-4">
+        <h1 className="text-xl">
+          Total Price: ${getTotalTicketPrice().toFixed(2)}
+        </h1>
+      </div>
     </div>
   );
 }
