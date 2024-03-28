@@ -185,7 +185,7 @@ router.post("/get-all-theatres-by-movie", authMiddleware, async (req, res) => {
 //get show by id
 // Inside theatresRoute.js, within your "/get-show-by-id" route
 router.post("/get-show-by-id", authMiddleware, async (req, res) => {
-  console.log("Received payload for get-show-by-id:", req.body); // Log the request payload
+  
   try {
     const show = await Show.findById(req.body.showId) // Ensure this matches your payload key
       .populate("movie")

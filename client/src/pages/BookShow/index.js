@@ -5,6 +5,8 @@ import { GetShowById } from "../../apicalls/theatres";
 import { message } from "antd";
 import { ShowLoading, HideLoading } from "../../redux/loadersSlice"; // Assuming correct imports
 import moment from "moment";
+import StripeCheckout from "react-stripe-checkout";
+import Button from "../../components/Button";
 
 function BookShow() {
   const [show, setShow] = useState(null); // Initialize show as null
@@ -78,6 +80,11 @@ function BookShow() {
       </div>
     );
   };
+
+  const onToken = async (token) => {
+    console.log(token);
+  };
+
   const getTotalTicketPrice = () => {
     if (!show || selectedSeats.length === 0) return 0;
     return show.ticketPrice * selectedSeats.length;
@@ -93,7 +100,7 @@ function BookShow() {
         <div className="flex justify-between card p-2">
           <div>
             <h1 className="text-xl">{show.theatre.name}</h1>
-            <h1 className="text-xl">{show.theatre.address.name}</h1>
+            <h1 className="text-xl">{show.theatre.address}</h1>
           </div>
           <div>
             <h1 className="text-2xl">
@@ -115,6 +122,18 @@ function BookShow() {
           Total Price: ${getTotalTicketPrice().toFixed(2)}
         </h1>
       </div>
+
+      {selectedSeats.length > 0 &&
+      <div className="mt-2 flex justify-center">
+        <StripeCheckout
+        currency="usd"
+          token={onToken}
+          amount= {getTotalTicketPrice().toFixed(2)*100}
+          stripeKey="pk_test_51Oz9erIkZaqTp1DToCH45Y8rUL7YXmf6cJJ583LHyy4HFRR8FA754XBuuenlulGfTO9XBdq1fJg60CZgJBACR5IV00QB2uOW5K"
+        >
+          <Button title="Book Now" />
+        </StripeCheckout>
+      </div>}
     </div>
   );
 }
