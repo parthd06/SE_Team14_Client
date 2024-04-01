@@ -87,11 +87,10 @@ function BookShow() {
       dispatch(ShowLoading());
       const response = await MakePayment(
         token,
-        selectedSeats.length * show.ticketPrice * 100
+        selectedSeats.length * show.ticketPrice * 100,
       );
       if (response.success) {
         message.success(response.message);
-        book(response.data);
       } else {
         message.error(response.message);
       }
