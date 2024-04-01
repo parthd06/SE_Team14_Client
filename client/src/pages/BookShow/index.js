@@ -7,6 +7,7 @@ import { ShowLoading, HideLoading } from "../../redux/loadersSlice"; // Assuming
 import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
 import Button from "../../components/Button";
+import { BookShowTickets, MakePayment } from "../../apicalls/bookings";
 
 function BookShow() {
   const [show, setShow] = useState(null); // Initialize show as null
@@ -82,7 +83,23 @@ function BookShow() {
   };
 
   const onToken = async (token) => {
-    console.log(token);
+    try {
+      dispatch(ShowLoading());
+      const response = await MakePayment(
+        token,
+        selectedSeats.length * show.ticketPrice * 100
+      );
+      if (response.success) {
+        message.success(response.message);
+        book(response.data);
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      message.error(error.message);
+      dispatch(HideLoading());
+    }
   };
 
   const getTotalTicketPrice = () => {
@@ -123,17 +140,18 @@ function BookShow() {
         </h1>
       </div>
 
-      {selectedSeats.length > 0 &&
-      <div className="mt-2 flex justify-center">
-        <StripeCheckout
-        currency="usd"
-          token={onToken}
-          amount= {getTotalTicketPrice().toFixed(2)*100}
-          stripeKey="pk_test_51Oz9erIkZaqTp1DToCH45Y8rUL7YXmf6cJJ583LHyy4HFRR8FA754XBuuenlulGfTO9XBdq1fJg60CZgJBACR5IV00QB2uOW5K"
-        >
-          <Button title="Book Now" />
-        </StripeCheckout>
-      </div>}
+      {selectedSeats.length > 0 && (
+        <div className="mt-2 flex justify-center">
+          <StripeCheckout
+            currency="usd"
+            token={onToken}
+            amount={getTotalTicketPrice().toFixed(2) * 100}
+            stripeKey="pk_test_51Oz9erIkZaqTp1DToCH45Y8rUL7YXmf6cJJ583LHyy4HFRR8FA754XBuuenlulGfTO9XBdq1fJg60CZgJBACR5IV00QB2uOW5K"
+          >
+            <Button title="Book Now" />
+          </StripeCheckout>
+        </div>
+      )}
     </div>
   );
 }
