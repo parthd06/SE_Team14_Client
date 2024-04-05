@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { GetShowById } from "../../apicalls/theatres";
 import { message } from "antd";
 import { ShowLoading, HideLoading } from "../../redux/loadersSlice"; // Assuming correct imports
@@ -10,11 +10,14 @@ import Button from "../../components/Button";
 import { BookShowTickets, MakePayment } from "../../apicalls/bookings";
 
 function BookShow() {
+  const { user } = useSelector((state) => state.users);
   const [show, setShow] = useState(null); // Initialize show as null
   const [selectedSeats, setSelectedSeats] = useState([]); // Initialize selectedSeats as an empty array
 
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const getData = async () => {
     try {
@@ -81,6 +84,28 @@ function BookShow() {
       </div>
     );
   };
+
+  const book = async (transactionId) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await BookShowTickets({
+        show: params.id,
+        seats: selectedSeats,
+        transactionId,
+        user: user._id,
+      });
+      if (response.success) {
+        message.success(response.message);
+        Navigate("/profile");
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      message.error(error.message);
+      dispatch(HideLoading());
+    }
+  };  
 
   const onToken = async (token) => {
     try {
