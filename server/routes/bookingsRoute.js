@@ -7,42 +7,42 @@ const Show = require("../models/showModel");
 
 // make payment
 router.post("/make-payment", authMiddleware, async (req, res) => {
-    try {
-      const { token, amount } = req.body;
-  
-      const customer = await stripe.customers.create({
-        email: token.email,
-        source: token.id,
-      });
-  
-      const charge = await stripe.charges.create({
-        amount: amount,
-        currency: "usd",
-        customer: customer.id,
-        receipt_email: token.email,
-        description: "Ticket Booked for Movie",
-      },
+  try {
+    const { token, amount } = req.body;
+
+    const customer = await stripe.customers.create({
+      email: token.email,
+      source: token.id,
+    });
+
+    const charge = await stripe.charges.create({
+      amount: amount,
+      currency: "usd",
+      customer: customer.id,
+      receipt_email: token.email,
+      description: "Ticket Booked for Movie",
+    },
       {
         idempotencyKey: Math.random().toString(36).substring(7),
       }
-      
-      );
 
-      const transactionId = charge.id;
+    );
 
-      res.send({
-        success: true,
-        message: "Payment successful",
-        data: transactionId,
-      });
-     
-    } catch (error) {
-      res.send({
-        success: false,
-        message: error.message,
-      });
-    }
-  });
+    const transactionId = charge.id;
+
+    res.send({
+      success: true,
+      message: "Payment successful",
+      data: transactionId,
+    });
+
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 
 // book shows
 router.post("/book-show", authMiddleware, async (req, res) => {
@@ -66,6 +66,39 @@ router.post("/book-show", authMiddleware, async (req, res) => {
     res.send({
       success: false,
       message: error.message,
+    });
+  }
+});
+
+// get all bookings by user
+router.get("/book-show", authMiddleware, async (req, res) => {
+  try {
+    const bookings = await Booking.find({ user: req.body.userId })
+    .populate("show")
+    .populate({
+      path: "show",
+      populate: {
+        path: "movies",
+        model: "movies"
+      },
+    })
+    .populate("user")
+    .populate({
+      path: "show",
+      populate: {
+        path: "theatre",
+        model: "theatre"
+      },
+    });
+
+    res.send({
+      success: true,
+      message: "Bookings fetched successfully", data: bookings
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error - message
     });
   }
 });
