@@ -10,7 +10,7 @@ import Button from "../../components/Button";
 import { BookShowTickets, MakePayment } from "../../apicalls/bookings";
 
 function BookShow() {
-  const { user } = useSelector((state) => state.users);
+  const { user } = useSelector(state => state.users);
   const [show, setShow] = useState(null); // Initialize show as null
   const [selectedSeats, setSelectedSeats] = useState([]); // Initialize selectedSeats as an empty array
 
@@ -96,7 +96,7 @@ function BookShow() {
       });
       if (response.success) {
         message.success(response.message);
-        Navigate("/profile");
+        navigate("/profile");
       } else {
         message.error(response.message);
       }
@@ -116,6 +116,7 @@ function BookShow() {
       );
       if (response.success) {
         message.success(response.message);
+        book(response.data);
       } else {
         message.error(response.message);
       }
