@@ -25,7 +25,7 @@ export const BookShowTickets = async (payload) => {
 
 
 //get bookings of user
-export const GetBookingsofUser = async () => {
+export const GetBookingsOfUser = async () => {
   try {
     const response = await axiosInstance.get("/api/bookings/get-bookings");
     return response.data;

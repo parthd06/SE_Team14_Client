@@ -71,7 +71,7 @@ router.post("/book-show", authMiddleware, async (req, res) => {
 });
 
 // get all bookings by user
-router.get("/book-show", authMiddleware, async (req, res) => {
+router.get("/get-bookings", authMiddleware, async (req, res) => {
   try {
     const bookings = await Booking.find({ user: req.body.userId })
     .populate("show")
@@ -98,9 +98,10 @@ router.get("/book-show", authMiddleware, async (req, res) => {
   } catch (error) {
     res.send({
       success: false,
-      message: error - message
+      message: error.message,
     });
   }
 });
+
 
 module.exports = router;

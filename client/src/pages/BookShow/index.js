@@ -168,7 +168,7 @@ function BookShow() {
       {selectedSeats.length > 0 && (
         <div className="mt-2 flex justify-center">
           <StripeCheckout
-            currency="usd"
+            // currency="usd"
             token={onToken}
             amount={getTotalTicketPrice().toFixed(2) * 100}
             stripeKey="pk_test_51Oz9erIkZaqTp1DToCH45Y8rUL7YXmf6cJJ583LHyy4HFRR8FA754XBuuenlulGfTO9XBdq1fJg60CZgJBACR5IV00QB2uOW5K"
