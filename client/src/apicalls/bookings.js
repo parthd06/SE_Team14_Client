@@ -32,4 +32,4 @@ export const GetBookingsOfUser = async () => {
   } catch (error) {
     return error.response.data;
   }
-}
+};
