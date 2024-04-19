@@ -15,14 +15,15 @@ router.post("/add-theatre", authMiddleware, async (req, res) => {
   } catch (error) {
     res.send({
       success: false,
+      message: error.message,
     });
   }
 });
 
 // get all theatres
-router.get("/get-all-theatres",authMiddleware, async (req, res) => {
+router.get("/get-all-theatres", authMiddleware, async (req, res) => {
   try {
-    const theatres = await Theatre.find().sort({ createdAt: -1 });
+    const theatres = await Theatre.find().populate('owner').sort({ createdAt: -1 });
     res.send({
       success: true,
       message: "Theatres fetched successfully",
@@ -31,12 +32,13 @@ router.get("/get-all-theatres",authMiddleware, async (req, res) => {
   } catch (error) {
     res.send({
       success: false,
+      message: error.message,
     });
   }
 });
 
-// get all theatres by owners
-router.post("/get-all-theatres-by-owner",authMiddleware, async (req, res) => {
+// get all theatres by owner
+router.post("/get-all-theatres-by-owner", authMiddleware, async (req, res) => {
   try {
     const theatres = await Theatre.find({ owner: req.body.owner }).sort({
       createdAt: -1,
@@ -55,7 +57,7 @@ router.post("/get-all-theatres-by-owner",authMiddleware, async (req, res) => {
 });
 
 // update theatre
-router.post("/update-theatre",authMiddleware, async (req, res) => {
+router.post("/update-theatre", authMiddleware, async (req, res) => {
   try {
     await Theatre.findByIdAndUpdate(req.body.theatreId, req.body);
     res.send({
@@ -86,7 +88,7 @@ router.post("/delete-theatre", authMiddleware, async (req, res) => {
   }
 });
 
-// add shows
+// add show
 router.post("/add-show", authMiddleware, async (req, res) => {
   try {
     const newShow = new Show(req.body);
@@ -182,31 +184,23 @@ router.post("/get-all-theatres-by-movie", authMiddleware, async (req, res) => {
   }
 });
 
-//get show by id
-// Inside theatresRoute.js, within your "/get-show-by-id" route
+// get show by id
 router.post("/get-show-by-id", authMiddleware, async (req, res) => {
-  
   try {
-    const show = await Show.findById(req.body.showId) // Ensure this matches your payload key
+    const show = await Show.findById(req.body.showId)
       .populate("movie")
       .populate("theatre");
-    if (show) {
-      res.send({
-        success: true,
-        message: "Show fetched successfully",
-        data: show,
-      });
-    } else {
-      res.status(404).send({ success: false, message: "Show not found" }); // Handle not found
-    }
+    res.send({
+      success: true,
+      message: "Show fetched successfully",
+      data: show,
+    });
   } catch (error) {
-    console.error("Error fetching show by ID:", error); // Error logging
-    res.status(500).send({
+    res.send({
       success: false,
       message: error.message,
     });
   }
 });
-
 
 module.exports = router;
