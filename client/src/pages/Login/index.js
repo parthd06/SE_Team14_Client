@@ -28,11 +28,10 @@ function LOGIN() {
   };
 
   useEffect(() => {
-    
     if (localStorage.getItem("token")) {
       navigate("/");
     }
-  }, [navigate]); 
+  }, [navigate]);
 
   return (
     <div className="flex justify-center h-screen items-center bg-primary">

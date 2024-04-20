@@ -38,7 +38,6 @@ function Bookings() {
           <Col span={12}>
             <div className="card p-2 flex justify-between uppercase">
               <div>
-                
                 <h1 className="text-xl">
                   {booking.show.movie.title} ({booking.show.movie.language})
                 </h1>

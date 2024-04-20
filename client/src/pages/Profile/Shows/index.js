@@ -11,6 +11,7 @@ import {
 } from "../../../apicalls/theatres";
 import moment from "moment";
 
+
 function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
   const [view, setView] = React.useState("table");
   const [shows, setShows] = React.useState([]);

@@ -10,14 +10,13 @@ import Button from "../../components/Button";
 import { BookShowTickets, MakePayment } from "../../apicalls/bookings";
 
 function BookShow() {
-  const { user } = useSelector(state => state.users);
+  const { user } = useSelector((state) => state.users);
   const [show, setShow] = useState(null); // Initialize show as null
   const [selectedSeats, setSelectedSeats] = useState([]); // Initialize selectedSeats as an empty array
 
   const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
 
   const getData = async () => {
     try {
@@ -105,14 +104,14 @@ function BookShow() {
       message.error(error.message);
       dispatch(HideLoading());
     }
-  };  
+  };
 
   const onToken = async (token) => {
     try {
       dispatch(ShowLoading());
       const response = await MakePayment(
         token,
-        selectedSeats.length * show.ticketPrice * 100,
+        selectedSeats.length * show.ticketPrice * 100
       );
       if (response.success) {
         message.success(response.message);
