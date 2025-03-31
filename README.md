@@ -23,7 +23,7 @@ To redesign and enhance the traditional movie ticket booking system by focusing 
 
 ## 🎥 Project Demo
 
-<video src="./Documents/TEAM14_Flickfix_Demo.mp4" controls width="600">
+<video src="[./Documents/TEAM14_Flickfix_Demo.mp4](https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/TEAM14_Flickfix_Demo.mp4)" controls width="600">
   Your browser does not support the video tag.
 </video>
 
