@@ -23,11 +23,11 @@ To redesign and enhance the traditional movie ticket booking system by focusing 
 
 ## 🎥 Project Demo
 
-[](https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/TEAM14_Flickfix_Demo.mp4)
+[](https://github.com/parthd06/SE_Team14_Client/blob/cf79137e3f1c2478e562be4215fb68e8d0c3647c/Documents/TEAM14_Flickfix_Demo.mp4)
 
 ## System Design
 
-[System Design](https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/System_Design.png)
+![System Design](https://github.com/parthd06/SE_Team14_Client/blob/cf79137e3f1c2478e562be4215fb68e8d0c3647c/Documents/System_Design.png)
 
 ## 🚀 Key Features
 
@@ -48,12 +48,7 @@ To redesign and enhance the traditional movie ticket booking system by focusing 
 - Archita Palkar  
 - Hemesh Malathi  
 - Sarthak Choudhary  
-- Ashutosh Jagdale  
-
----
-
-## 🖼️ Screenshots  
-> *(Insert screenshots here for Home Page, Seat Selection, Admin Dashboard, etc.)*
+- Ashutosh Jagdale
 
 ---
 
