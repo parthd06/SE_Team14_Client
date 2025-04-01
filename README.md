@@ -59,24 +59,19 @@ To redesign and enhance the traditional movie ticket booking system by focusing 
 
 ## 🧱 Tech Stack Used:
 
-### 💻 Frontend:
+**Front-End:**
 - React.js  
 - Ant Design  
 - Redux Toolkit  
 - Axios  
 
-### 🖥️ Backend:
+**Back-End:**
 - Node.js  
 - Express.js  
 - RESTful APIs  
 
-### 🗃️ Database:
-- MongoDB  
-
-### 🛠️ Tools & Dev:
-- Visual Studio Code  
-- Git & GitHub  
-- Postman (API testing)
+**Database:**
+- MongoDB
 
 ---
 
@@ -101,7 +96,7 @@ To redesign and enhance the traditional movie ticket booking system by focusing 
 
 ## 📄 Documentation
 [Initial topic Presentation](https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/FlickFix-Initial_Project_statement.pdf)
-[Project proposed plan](https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/Project_Plan.pdf)
-[Final Report](https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/Closure_Report.pdf)
 
----
+[Project proposed plan](https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/Project_Plan.pdf)
+
+[Final Report](https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/Closure_Report.pdf)
