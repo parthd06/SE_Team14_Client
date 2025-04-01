@@ -19,11 +19,10 @@ To redesign and enhance the traditional movie ticket booking system by focusing 
 - Integration with modern payment systems
 - Scalable and modular system design
 
----
 
 ## 🎥 Project Demo
 
-[](https://github.com/parthd06/SE_Team14_Client/blob/cf79137e3f1c2478e562be4215fb68e8d0c3647c/Documents/TEAM14_Flickfix_Demo.mp4)
+[](https://github.com/user-attachments/assets/9cef5f36-45f1-4573-91f3-ec57d02bcc21)
 
 ## System Design
 
