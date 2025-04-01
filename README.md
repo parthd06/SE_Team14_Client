@@ -34,10 +34,8 @@ To redesign and enhance the traditional movie ticket booking system by focusing 
 - 🪑 Real-Time Seat Booking with Live Availability  
 - 🛠️ Admin Dashboard for movie uploads, approvals, and system settings  
 - 🎭 Theatre Owner Panel to manage shows, theatres, and schedules  
-- 💳 Integrated Razorpay Payment Gateway  
-- 🔐 Secure Authentication with role-based access (User, Admin, Owner)  
+- 💳 Integrated Stripe Payment Gateway  
 - 🧾 View Booking History and Upcoming Shows  
-- 📱 Fully Responsive Design for mobile and desktop users  
 
 ---
 
