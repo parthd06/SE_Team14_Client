@@ -100,8 +100,8 @@ To redesign and enhance the traditional movie ticket booking system by focusing 
 ---
 
 ## 📄 Documentation
-- Initial topic Presentation: [https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/FlickFix-Initial_Project_statement.pdf]
-- Project proposed plan: [https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/Project_Plan.pdf]
-- Final Report: [https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/Closure_Report.pdf]  
+- [Initial topic Presentation]: (https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/FlickFix-Initial_Project_statement.pdf)
+- [Project proposed plan]: (https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/Project_Plan.pdf)
+- [Final Report]: (https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/Closure_Report.pdf)
 
 ---
