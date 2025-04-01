@@ -27,7 +27,7 @@ To redesign and enhance the traditional movie ticket booking system by focusing 
 
 ## System Design
 
-![System Design](./Documents/System_Design.png)
+![System Design](https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/System_Design.png)
 
 ## 🚀 Key Features
 
@@ -99,16 +99,9 @@ To redesign and enhance the traditional movie ticket booking system by focusing 
 
 ---
 
-## 📝 Future Improvements
-- 📲 Mobile App version (React Native)
-- 💬 Real-time Customer Support Chat
-- 📊 Analytics Dashboard for theatre owners
-- 🎯 Recommendation System based on user preferences
-
----
-
 ## 📄 Documentation
-- Final Report: [link]  
-- Final Presentation: [link]  
+- Initial topic Presentation: [https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/FlickFix-Initial_Project_statement.pdf]
+- Project proposed plan: [https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/Project_Plan.pdf]
+- Final Report: [https://github.com/parthd06/SE_Team14_Client/blob/main/Documents/Closure_Report.pdf]  
 
 ---
